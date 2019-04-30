@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="report_purchase_order_customized" inherit_id="purchase.report_purchaseorder_document">
+            <!--<xpath expr="//span[@t-field='l.discount']" position="after">-->
+                 <!--<span t-esc="'%.2f'%(l.discount)"/>-->
+            <!--</xpath>-->
+            <xpath expr="//tr[@class='border-black']" position="before">
+                <tr class="border-black" style="border-bottom:1px solid #dddddd;">
+                    <td>Price Total</td>
+                    <td class="text-right">
+                        <span t-field="o.price_total_without_disc"
+                            t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                    </td>
+                </tr>
+                <tr class="border-black" style="border-bottom:1px solid #dddddd;">
+                    <td>Total Discount</td>
+                    <td class="text-right">
+                        <span t-field="o.amount_discount"
+                            t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                    </td>
+                </tr>
+            </xpath>
+            <!--new -->
+
+            <xpath expr="//table[1]/thead/tr//th[last()]" position="before">
+                <th class="text-right"><strong>Price Total</strong></th>
+                <th class="text-right"><strong>Disc. (%)</strong></th>
+            </xpath>
+            <xpath expr="//td[span[@t-field='line.price_subtotal']]" position="before">
+                <td class="text-right">
+                    <span t-field="line.price_total_without_disc"/>
+                </td>
+                <td class="text-right">
+                    <span t-field="line.discount"/>
+                </td>
+            </xpath>
+        </template>
+
+
+    </data>
+</odoo>
